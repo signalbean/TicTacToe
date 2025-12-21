@@ -4,9 +4,16 @@ import random
 WINS = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
 
 def display(board):
+    ansi = {'X': '\033[92m', 'O': '\033[91m', 'reset': '\033[0m'}
     os.system('cls' if os.name == 'nt' else 'clear')
-    b = [f"\033[9{4 if c=='X' else 1}m{c}\033[0m" if c in 'XO' else c for c in board]
-    print(f"\n  {b[0]}  │  {b[1]}  │  {b[2]}  \n─────┼─────┼─────\n  {b[3]}  │  {b[4]}  │  {b[5]}  \n─────┼─────┼─────\n  {b[6]}  │  {b[7]}  │  {b[8]}  \n")
+    b = [f"{ansi[c]}{c}{ansi['reset']}" if c in 'XO' else c for c in board]
+    print(
+        f"\n  {b[0]}  │  {b[1]}  │  {b[2]}  \n"
+        f"─────┼─────┼─────\n"
+        f"  {b[3]}  │  {b[4]}  │  {b[5]}  \n"
+        f"─────┼─────┼─────\n"
+        f"  {b[6]}  │  {b[7]}  │  {b[8]}  \n"
+    )
 
 def winner(board, p):
     return any(all(board[i] == p for i in w) for w in WINS)

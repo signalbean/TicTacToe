@@ -21,12 +21,13 @@ Core utility functions for board management, game logic, and AI decision making.
 
 **Process**:
 1. **Screen Clear**: Uses `os.system()` to clear terminal (cross-platform)
-2. **Color Coding**: 
-   - X: Blue (`\033[94m`)
-   - O: Red (`\033[91m`)
-   - Numbers: Default color
-3. **Board Layout**: Creates 3x3 grid with Unicode box characters
-4. **Formatting**: Spaces and separators for visual clarity
+2. **ANSI Color Dictionary**: 
+   - `ansi['X']`: Green (`\033[92m`)
+   - `ansi['O']`: Red (`\033[91m`)
+   - `ansi['reset']`: Reset color (`\033[0m`)
+3. **Color Application**: Maps X/O to colors, leaves numbers unchanged
+4. **Multiline Print**: Uses f-string concatenation for readable formatting
+5. **Board Layout**: Creates 3x3 grid with Unicode box characters
 
 **Input**: `board` - List of 9 strings (positions 0-8)
 **Output**: Formatted board printed to console
