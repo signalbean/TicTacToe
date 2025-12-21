@@ -28,7 +28,6 @@ Main game controller that handles user interaction, game flow, coordinates betwe
 5. **End Conditions**:
    - Winner found: Display winner, save game, and exit
    - 9 moves completed: Display "Tie!", save game, and exit
-   - User interruption: Clean exit message
 
 **Game Recording**:
 - Tracks each move with player, position, and move number
@@ -36,12 +35,17 @@ Main game controller that handles user interaction, game flow, coordinates betwe
 - Calls `save_game()` from replay module on game completion
 
 ### `main()`
-**Purpose**: Application entry point that provides continuous play functionality.
+**Purpose**: Application entry point that provides continuous play functionality with exception handling.
 
 **Flow**:
-1. Runs `play()` in infinite loop
+1. Runs `play()` in infinite loop within try-catch block
 2. After each game, prompts user to play again
 3. Exits cleanly if user declines (anything other than 'y')
+4. Handles KeyboardInterrupt and EOFError for clean exits
+
+**Exception Handling**:
+- Catches KeyboardInterrupt (Ctrl+C) and EOFError at top level
+- Allows graceful exit from anywhere in the application
 
 **Input Handling**:
 - Accepts integers 1-9 for board positions
@@ -56,10 +60,10 @@ Main game controller that handles user interaction, game flow, coordinates betwe
 - AI moves are automatic (no user input required)
 
 **Error Handling**:
-- Try-catch for invalid integer input
-- KeyboardInterrupt and EOFError for clean exits
+- Try-catch for invalid integer input within move validation loop
 - Input validation loop until valid move entered
 
 ## Dependencies
 - `utils` module: display, winner, ai_move functions
-- `replay` module: save_game, replay_game functions
+- `save` module: save_game function (imported via replay)
+- `replay` module: replay_game function
