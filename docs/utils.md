@@ -16,11 +16,24 @@ Core utility functions for board management, game logic, and AI decision making.
 
 ## Functions
 
+### `clear_screen()`
+**Purpose**: Clears the terminal screen in a cross-platform way
+
+**Implementation**:
+- Uses `os.system('cls')` on Windows
+- Uses `os.system('clear')` on Unix-based systems
+
+**Used by**:
+- `display_board()`
+- `game.py` menu rendering
+- Between consecutive games
+
 ### `display_board(board)`
 **Purpose**: Renders the game board with colors and formatting in a single compact print statement
 
 **Process**:
-1. **Screen Clear**: Uses `os.system()` to clear terminal (cross-platform)
+1. **Screen Clear**:
+   - Calls `clear_screen()` utility for reuse and consistency
 2. **ANSI Color Dictionary**: 
    - `colors['X']`: Green (`\033[92m`)
    - `colors['O']`: Red (`\033[91m`)
