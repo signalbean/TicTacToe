@@ -4,7 +4,7 @@ def play_game():
     clear_screen()
 
     print("""
-           Tic Tac Toe      
+           Tic Tac Toe
     ┌───────────────────────┐
     │ 1. PvP                │
     │ 2. Easy               │
