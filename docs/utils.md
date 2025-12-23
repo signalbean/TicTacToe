@@ -1,7 +1,7 @@
 # utils.py Documentation
 
 ## Overview
-Core utility functions for board management, game logic, and AI decision making. Contains all the mathematical and display logic.
+Core utility functions for board management, game logic, and AI decision making. Contains all the mathematical and display logic with compact, efficient implementations.
 
 ## Constants
 
@@ -16,30 +16,29 @@ Core utility functions for board management, game logic, and AI decision making.
 
 ## Functions
 
-### `display(board)`
-**Purpose**: Renders the game board with colors and formatting
+### `display_board(board)`
+**Purpose**: Renders the game board with colors and formatting in a single compact print statement
 
 **Process**:
 1. **Screen Clear**: Uses `os.system()` to clear terminal (cross-platform)
 2. **ANSI Color Dictionary**: 
-   - `ansi['X']`: Green (`\033[92m`)
-   - `ansi['O']`: Red (`\033[91m`)
-   - `ansi['reset']`: Reset color (`\033[0m`)
-3. **Color Application**: Maps X/O to colors, leaves numbers unchanged
-4. **Multiline Print**: Uses f-string concatenation for readable formatting
+   - `colors['X']`: Green (`\033[92m`)
+   - `colors['O']`: Red (`\033[91m`)
+   - `colors['reset']`: Reset color (`\033[0m`)
+3. **Color Application**: One-line list comprehension maps X/O to colors, leaves numbers unchanged
+4. **Single Print**: Uses f-string with embedded newlines for complete board layout
 5. **Board Layout**: Creates 3x3 grid with Unicode box characters
 
 **Input**: `board` - List of 9 strings (positions 0-8)
 **Output**: Formatted board printed to console
 
-### `winner(board, player)`
-**Purpose**: Checks if specified player has won the game
+### `check_winner(board, player)`
+**Purpose**: Checks if specified player has won the game using compact one-liner
 
 **Algorithm**:
-- Iterates through all winning combinations in `WINS`
-- For each combination, checks if all 3 positions contain the player's symbol
+- Single line with `any()` and `all()` to check all winning combinations
+- Iterates through all combinations in `WINS`
 - Returns `True` if any winning combination is found
-- Uses `any()` and `all()` for efficient checking
 
 **Input**: 
 - `board` - Current board state
@@ -47,8 +46,8 @@ Core utility functions for board management, game logic, and AI decision making.
 
 **Output**: Boolean indicating if player has won
 
-### `minmax(board, max_turn, a, b)`
-**Purpose**: Implements minmax algorithm with alpha-beta pruning for optimal AI moves
+### `minimax(board, is_maximizing, alpha, beta)`
+**Purpose**: Implements minimax algorithm with alpha-beta pruning for optimal AI moves
 
 **Algorithm**:
 1. **Base Cases**:
@@ -57,11 +56,11 @@ Core utility functions for board management, game logic, and AI decision making.
    - No moves left: return 0 (tie)
 
 2. **Recursive Case**:
-   - Generate all available moves
+   - Generate all available moves with list comprehension
    - For each move, simulate placing piece
    - Recursively evaluate resulting position
    - Restore board state after evaluation
-   - Apply alpha-beta pruning to cut off branches
+   - Apply alpha-beta pruning with compact if/else
 
 3. **Maximizing Turn** (AI's turn):
    - Tries to maximize score
@@ -75,48 +74,53 @@ Core utility functions for board management, game logic, and AI decision making.
 
 **Parameters**:
 - `board` - Current game state
-- `max_turn` - Boolean, True for AI turn, False for human
-- `a` - Alpha value for pruning (best maximizer score)
-- `b` - Beta value for pruning (best minimizer score)
+- `is_maximizing` - Boolean, True for AI turn, False for human
+- `alpha` - Alpha value for pruning (best maximizer score)
+- `beta` - Beta value for pruning (best minimizer score)
 
 **Output**: Integer score (-1, 0, or +1)
 
-### `ai_move(board, diff)`
-**Purpose**: Selects AI move based on difficulty level
+### `get_ai_move(board, difficulty)`
+**Purpose**: Selects AI move based on difficulty level using compact lambda implementation
 
 **Difficulty Levels**:
 1. **Easy**: Completely random moves
 2. **Medium**: 50% random, 50% optimal
-3. **Hard**: Always optimal (minmax)
+3. **Hard**: Always optimal (minimax)
 
 **Algorithm**:
-1. **Get Available Moves**: Find all empty positions
+1. **Get Available Moves**: List comprehension finds all empty positions
 2. **Apply Difficulty**:
    - Easy: `random.choice(moves)`
    - Medium: 50% chance of random move
    - Hard: Always use minimax evaluation
 3. **Optimal Move Selection**:
-   - Try each available move
-   - Evaluate position using minmax
-   - Select move with highest score
-   - Uses lambda function for compact evaluation
+   - Uses `max()` with lambda function for compact evaluation
+   - Lambda uses tuple unpacking with `__setitem__` for side-effect evaluation
+   - Evaluates each move using minimax and selects highest scoring
 
 **Input**:
 - `board` - Current game state
-- `diff` - Difficulty string ('easy', 'medium', 'hard')
+- `difficulty` - Difficulty string ('easy', 'medium', 'hard')
 
 **Output**: Integer (0-8) representing chosen move position
 
 ## Technical Notes
 
+### Compact Code Style
+- One-line list comprehensions for data processing
+- Single print statement for board display
+- Lambda functions for complex evaluations
+- Compact if/else statements and variable names
+
 ### Alpha-Beta Pruning
-- Optimization technique for minmax
+- Optimization technique for minimax
 - Eliminates branches that won't affect final decision
 - Significantly reduces computation time
-- Maintains same result as full minmax tree
+- Maintains same result as full minimax tree
 
 ### Board State Management
-- Board is modified during minmax evaluation
+- Board is modified during minimax evaluation
 - Always restored to original state after evaluation
 - Ensures no side effects on actual game board
 
