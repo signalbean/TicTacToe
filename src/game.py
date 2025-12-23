@@ -1,60 +1,59 @@
-from utils import display, winner, ai_move
-from replay import save_game, replay_game
+from utils import display_board, check_winner, get_ai_move
 
-def play():
-    moves = []
+def play_game():
+    print("\nTic Tac Toe")
+
+    print("┌───────────────────────┐")
+    print("│ 1. Player vs Player   │")
+    print("│ 2. Easy AI            │")
+    print("│ 3. Medium AI          │")
+    print("│ 4. Hard AI            │")
+    print("└───────────────────────┘")
+
+    choice = input("Choose mode: ")
     
-    print("1. PvP  2. Easy  3. Medium  4. Hard  5. Replay")
-    mode = input("> ")
-    
-    if mode == '5':
-        replay_game()
-        return
-        
-    ai_mode = mode in '234'
-    diff = {'2': 'easy', '3': 'medium', '4': 'hard'}.get(mode)
+    is_ai_game = choice in '234'
+    difficulty = {'2': 'easy', '3': 'medium', '4': 'hard'}.get(choice)
     board = [str(i) for i in range(1, 10)]
-    player = 'X'
-    move_num = 1
+    current_player = 'X'
     
-    for _ in range(9):
-        display(board)
-        if player == 'O' and ai_mode:
-            move = ai_move(board, diff)
+    for turn in range(9):
+        display_board(board)
+        
+        if current_player == 'O' and is_ai_game:
+            position = get_ai_move(board, difficulty)
         else:
             while True:
                 try:
-                    move = int(input(f"{player} (1-9): ")) - 1
-                    if 0 <= move <= 8 and board[move] not in 'XO': break
-                except: pass
-                print("Invalid!")
+                    position = int(input(f"{current_player} choose (1-9): ")) - 1
+                    if 0 <= position <= 8 and board[position] not in 'XO':
+                        break
+                except:
+                    pass
+                print("Invalid move!")
         
-        moves.append({'move_num': move_num, 'player': player, 'position': move})
-        board[move] = player
-        move_num += 1
+        board[position] = current_player
         
-        if winner(board, player):
-            display(board)
-            result = f"{'AI' if player == 'O' and ai_mode else player} wins!"
-            print(result)
-            save_game(moves, result, mode)
+        if check_winner(board, current_player):
+            display_board(board)
+            winner_name = 'AI' if current_player == 'O' and is_ai_game else current_player
+            print(f"{winner_name} wins!")
             return
-        player = 'O' if player == 'X' else 'X'
+            
+        current_player = 'O' if current_player == 'X' else 'X'
     
-    display(board)
-    result = "Tie!"
-    print(result)
-    save_game(moves, result, mode)
+    display_board(board)
+    print("It's a tie!")
 
 def main():
     try:
         while True:
-            play()
+            play_game()
             if input("\nPlay again? (y/N): ").lower() != 'y':
-                print("\nExited.")
+                print("\nGoodbye!")
                 break
     except (KeyboardInterrupt, EOFError):
-        print("\nExited.")
+        print("\nGoodbye!")
 
 if __name__ == "__main__":
     main()
