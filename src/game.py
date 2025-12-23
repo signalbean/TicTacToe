@@ -1,14 +1,17 @@
-from utils import display_board, check_winner, get_ai_move
+from utils import *
 
 def play_game():
-    print("\nTic Tac Toe")
+    clear_screen()
 
-    print("┌───────────────────────┐")
-    print("│ 1. Player vs Player   │")
-    print("│ 2. Easy AI            │")
-    print("│ 3. Medium AI          │")
-    print("│ 4. Hard AI            │")
-    print("└───────────────────────┘")
+    print("""
+           Tic Tac Toe      
+    ┌───────────────────────┐
+    │ 1. Player vs Player   │
+    │ 2. Easy AI            │
+    │ 3. Medium AI          │
+    │ 4. Hard AI            │
+    └───────────────────────┘
+    """)
 
     choice = input("Choose mode: ")
     
@@ -49,9 +52,10 @@ def main():
     try:
         while True:
             play_game()
-            if input("\nPlay again? (y/N): ").lower() != 'y':
-                print("\nGoodbye!")
+            if input("Play again? (y/N): ").lower() != 'y':
+                print("Goodbye!")
                 break
+            clear_screen()
     except (KeyboardInterrupt, EOFError):
         print("\nGoodbye!")
 
