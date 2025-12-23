@@ -1,12 +1,12 @@
 # game.py Documentation
 
 ## Overview
-Main game controller that handles user interaction, game flow, and coordinates between board display and AI logic. Provides a clean TicTacToe gaming experience.
+Main game controller that handles user interaction, game flow, and coordinates between board display and AI logic.
 
 ## Functions
 
 ### `play_game()`
-**Purpose**: Single game session that orchestrates the entire TicTacToe game experience.
+**Purpose**: Single game session that has the entire TicTacToe game experience.
 
 **Flow**:
 1. **Mode Selection**: Prompts user to choose between Player vs Player (1) or AI difficulties (2-4)

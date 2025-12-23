@@ -1,7 +1,7 @@
 # utils.py Documentation
 
 ## Overview
-Core utility functions for board management, game logic, and AI decision making. Contains all the mathematical and display logic with compact, efficient implementations.
+Core utility functions for board management, game logic, and AI decision making. Contains all the mathematical and display logic.
 
 ## Constants
 
@@ -33,7 +33,7 @@ Core utility functions for board management, game logic, and AI decision making.
 **Output**: Formatted board printed to console
 
 ### `check_winner(board, player)`
-**Purpose**: Checks if specified player has won the game using compact one-liner
+**Purpose**: Checks if specified player has won the game
 
 **Algorithm**:
 - Single line with `any()` and `all()` to check all winning combinations
