@@ -6,10 +6,10 @@ def play_game():
     print("""
            Tic Tac Toe      
     ┌───────────────────────┐
-    │ 1. Player vs Player   │
-    │ 2. Easy AI            │
-    │ 3. Medium AI          │
-    │ 4. Hard AI            │
+    │ 1. PvP                │
+    │ 2. Easy               │
+    │ 3. Medium             │
+    │ 4. Hard               │
     └───────────────────────┘
     """)
 
